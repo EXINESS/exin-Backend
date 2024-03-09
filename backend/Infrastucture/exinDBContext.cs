@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 namespace backend.Infrastucture
 {
-    public class exinDBContext:DbContext
+    public class exinDBContext : DbContext
     {
         protected readonly IConfiguration Configuration;
         public exinDBContext(IConfiguration configuration)
