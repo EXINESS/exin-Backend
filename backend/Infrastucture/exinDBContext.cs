@@ -14,6 +14,7 @@ namespace backend.Infrastucture
             // connect to sql server database
             options.UseSqlServer(Configuration.GetConnectionString(""));
         }
-        //public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
+        public DbSet<Target> Target { get; set; }
     }
 }

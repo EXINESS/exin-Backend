@@ -1,6 +1,6 @@
-﻿namespace backend.Domain.Cores
+﻿namespace backend.Models.Targets
 {
-    public class Target
+    public class TargetModel
     {
         public long Id { get; set; }
         public string Name { get; set; }
