@@ -5,8 +5,6 @@ namespace backend.Services
 {
     public class TargetService : ITargetService
     {
-
-
         public string AddSubTask(SubTask subTask)
         {
             throw new NotImplementedException();
