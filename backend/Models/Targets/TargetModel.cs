@@ -1,9 +1,15 @@
-﻿namespace backend.Models.Targets
+﻿using backend.Domain.Cores;
+using backend.Models.Targets;
+using System.ComponentModel.DataAnnotations;
+namespace backend.Models.Targets
 {
     public class TargetModel
     {
-        public long Id { get; set; }
+        public int Id { get; set; }
+        [Required]
         public string Name { get; set; }
-        public bool IsComplete { get; set; }
+
+        public readonly List<SubTask> subTasks;
+
     }
 }

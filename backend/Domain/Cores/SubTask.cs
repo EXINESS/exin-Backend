@@ -1,6 +1,7 @@
-﻿namespace backend.Domain.Cores
+﻿using backend.Domain.Contracts;
+namespace backend.Domain.Cores
 {
-    public class SubTask
+    public class SubTask: Entity<int>
     {
         public int Id { get; set; }
         public string Name { get; set; }    
