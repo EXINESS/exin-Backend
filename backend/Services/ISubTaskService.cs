@@ -4,8 +4,8 @@ namespace backend.Services
     public interface ISubTaskService
     {
         IEnumerable<SubTask> GetAll();
-        public string AddSubTask(SubTask subTask);
-        public SubTask DelSubTask(string subTaskName);
+        public  SubTask AddSubTask(SubTask subTask);
+        public void DelSubTask( Guid id);
         //public int ChangeStatus()
     }
 }

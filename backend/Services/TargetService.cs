@@ -8,7 +8,7 @@ namespace backend.Services
     public class TargetService : ITargetService
     {
         private readonly List<Target> _targets;
-        //private readonly List<SubTask> _subtasks;
+        private readonly List<SubTask> _subtasks;
 
         public TargetService()
         {
@@ -18,19 +18,26 @@ namespace backend.Services
         {
             return _targets;
         }
-        public string AddSubTask(SubTask subTask)
+        public SubTask AddSubTask(SubTask subTask)
         {
-            throw new NotImplementedException();
+            subTask.Id = Guid.NewGuid();
+            _subtasks.Add(subTask);
+            return subTask;
         }
 
-        public string AddTarget(Target target)
+        public Target AddTarget(Target target)
         {
-            throw new NotImplementedException();
+            target.Id = Guid.NewGuid();
+            _targets.Add(target);
+            return target;
         }
 
-        public string DelTarget(Target target)
+        public void DelTarget(Guid id)
         {
-            throw new NotImplementedException();
+           var test=_targets.First(t => t.Id == id);
+            _targets.Remove(test);
         }
+
+     
     }
 }

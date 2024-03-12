@@ -14,14 +14,17 @@ namespace backend.Services
         {
             return _subtasks;
         }
-        public string AddSubTask(SubTask subTask)
+        public SubTask AddSubTask(SubTask subtask)
         {
-            throw new NotImplementedException();
+            subtask.Id = Guid.NewGuid();
+            _subtasks.Add(subtask);
+            return subtask;
         }
 
-        public SubTask DelSubTask(string subTaskName)
+        public void DelSubTask(Guid id)
         {
-            throw new NotImplementedException();
+           var test=_subtasks(t => t.Id == id);
+            _subtasks.Remove(test);
         }
     }
 }

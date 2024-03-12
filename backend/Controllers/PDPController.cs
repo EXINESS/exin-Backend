@@ -8,6 +8,7 @@ using backend.Infrastucture;
 namespace backend.Controllers
 {
     [ApiController]
+    [Route("[controller]/[action]")]
     public class PDPController:ControllerBase
     {
         private readonly exinDBContext _dBContext;
