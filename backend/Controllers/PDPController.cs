@@ -12,7 +12,7 @@ namespace backend.Controllers
     public class PDPController:ControllerBase
     {
         private readonly exinDBContext _dBContext;
-        public TargetController(exinDBContext dBContext)
+        public PDPController(exinDBContext dBContext)
         {
             dBContext = _dBContext;
         }

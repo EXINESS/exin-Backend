@@ -3,8 +3,10 @@ namespace backend.Services
 {
     public interface ITargetService
     {
-        public string ReadTarget(Target target);
-        public string WriteTarget(Target target);
+        public string AddTarget(Target target);
+        public string DelTarget(Target target);
         public string  AddSubTask(SubTask subTask);
+        IEnumerable<Target> GetAll();
+     
     }
 }
