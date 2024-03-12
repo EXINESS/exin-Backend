@@ -7,7 +7,6 @@ using backend.Infrastucture;
 
 namespace backend.Controllers
 {
-    [Route("api/[controller]")]
     [ApiController]
     public class PDPController:ControllerBase
     {
