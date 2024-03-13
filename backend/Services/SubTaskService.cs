@@ -23,8 +23,13 @@ namespace backend.Services
 
         public void DelSubTask(Guid id)
         {
-           var test=_subtasks(t => t.Id == id);
+           var test=_subtasks.First(t => t.Id == id);
             _subtasks.Remove(test);
+        }
+
+        public int ChangeStatus(ISubTaskService.State state)
+        {
+            throw new NotImplementedException();
         }
     }
 }
