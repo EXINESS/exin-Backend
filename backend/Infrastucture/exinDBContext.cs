@@ -17,5 +17,7 @@ namespace backend.Infrastucture
         public DbSet<User> Users { get; set; }
         public DbSet<Target> Target { get; set; }
         public DbSet<SubTask> SubTasks { get; set; }
+        public DbSet<Token> Tokens { get; set; }
+        public DbSet<Achive> Achives { get; set; }
     }
 }
