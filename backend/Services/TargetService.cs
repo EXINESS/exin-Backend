@@ -38,6 +38,6 @@ namespace backend.Services
             _targets.Remove(test);
         }
 
-     
+        public Target GetById(Guid id) => _targets.Where(a => a.Id == id).FirstOrDefault();
     }
 }

@@ -31,5 +31,7 @@ namespace backend.Services
         {
             throw new NotImplementedException();
         }
+
+        public SubTask GetById(Guid id) => _subtasks.Where(a => a.Id == id).FirstOrDefault();
     }
 }

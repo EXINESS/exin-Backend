@@ -15,5 +15,6 @@ namespace backend.Services
         public  SubTask AddSubTask(SubTask subTask);
         public void DelSubTask( Guid id);
         public int ChangeStatus(State state);
+        SubTask GetById(Guid id);
     }
 }

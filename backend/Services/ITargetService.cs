@@ -7,6 +7,7 @@ namespace backend.Services
         public void DelTarget(Guid id);
         public SubTask  AddSubTask(SubTask subTask);
         IEnumerable<Target> GetAll();
-     
+       Target GetById(Guid id);
+
     }
 }
