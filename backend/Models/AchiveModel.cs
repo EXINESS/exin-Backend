@@ -1,15 +1,11 @@
-﻿using backend.Domain.Contracts;
-using Microsoft.Identity.Client;
-namespace backend.Domain.Cores
+﻿using backend.Domain.Cores;
+namespace backend.Models
 {
-    public class Achive: Entity<int>
+    public class AchiveModel
     {
         public int Id { get; set; }
         public int UserId { get; set; }
-
         public string Description { get; set; }
-
-
 
     }
 }
