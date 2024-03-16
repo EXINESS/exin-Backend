@@ -6,6 +6,7 @@ using backend.Domain.Cores;
 using backend.Infrastucture;
 using backend.Services;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.Extensions.Configuration;
 
 namespace backend.Controllers
 {
@@ -16,6 +17,23 @@ namespace backend.Controllers
         private readonly exinDBContext _dBContext;
         private readonly ITargetService _targetService;
         private readonly ISubTaskService _subTaskService;
+        private string TokenChecker(string token)
+        {
+            string _token = new Token().token;
+            if (token == _token)
+            {
+                if ()
+                {
+                    
+                }
+            }
+            else
+            {
+               return "Invalid Token";
+            }
+
+
+        }
 
         public PDPController(exinDBContext dBContext)
         {
@@ -23,10 +41,12 @@ namespace backend.Controllers
          
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<Target>> Get()
+        [HttpGet("{token}")]
+        public ActionResult<IEnumerable<Target>> Get(string token)
         {
+            //token=
             var items=_targetService.GetAll();
+           
             return Ok(items);
         }
         //[HttpGet]
@@ -50,7 +70,7 @@ namespace backend.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Remove(Guid id)
+        public ActionResult Remove(Guid id,string token)
         {
             var existingItem = _targetService.GetById(id);
 

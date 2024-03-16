@@ -1,5 +1,6 @@
 ﻿using backend.Domain.Cores;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 namespace backend.Infrastucture
 {
     public class exinDBContext : DbContext
@@ -14,6 +15,14 @@ namespace backend.Infrastucture
             // connect to sql server database
             options.UseSqlServer(Configuration.GetConnectionString(""));
         }
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.Entity<Token>()
+                             .HasIndex(e => e.token).IsUnique();
+
+        }
+
         public DbSet<User> Users { get; set; }
         public DbSet<Target> Target { get; set; }
         public DbSet<SubTask> SubTasks { get; set; }

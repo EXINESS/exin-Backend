@@ -14,7 +14,7 @@ namespace backend.Services
         {
             return _subtasks;
         }
-        public SubTask AddSubTask(SubTask subtask)
+        public SubTask EditeSubTask(SubTask subtask)
         {
             subtask.Id = Guid.NewGuid();
             _subtasks.Add(subtask);

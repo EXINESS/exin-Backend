@@ -13,7 +13,8 @@ namespace backend.Domain.Cores
         }
         public Guid Id { get; set; }
         public string Name { get; set; }    
-        public State Reason { get; set; }
+        public State Status { get; set; }
+        public string Reason {  get; set; }
 
  
 

@@ -12,7 +12,7 @@ namespace backend.Services
             FailurWithoutReason = 5
         }
         IEnumerable<SubTask> GetAll();
-        public  SubTask AddSubTask(SubTask subTask);
+        public  SubTask EditeSubTask(SubTask subTask);
         public void DelSubTask( Guid id);
         public int ChangeStatus(State state);
         SubTask GetById(Guid id);
