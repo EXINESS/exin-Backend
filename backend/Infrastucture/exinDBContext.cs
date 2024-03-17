@@ -28,5 +28,6 @@ namespace backend.Infrastucture
         public DbSet<SubTask> SubTasks { get; set; }
         public DbSet<Token> Tokens { get; set; }
         public DbSet<Achive> Achives { get; set; }
+        public DbSet<Feedback> Feedbacks { get; set; }
     }
 }
