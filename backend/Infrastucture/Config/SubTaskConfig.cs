@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using backend.Domain.Cores;
 using backend.Models.Targets;
+using backend.Domain.Cores.TargetAggregate;
 
 namespace backend.Infrastucture.Config
 {

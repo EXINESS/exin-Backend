@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using backend.Domain.Cores;
+using backend.Domain.Cores.AchiveAggregate;
 
 namespace backend.Infrastucture.Config
 {

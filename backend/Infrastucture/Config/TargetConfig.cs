@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using backend.Domain.Cores;
 using static System.Net.Mime.MediaTypeNames;
+using backend.Domain.Cores.TargetAggregate;
 
 namespace backend.Infrastucture.Config
 {

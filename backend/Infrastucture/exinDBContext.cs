@@ -1,4 +1,7 @@
 ﻿using backend.Domain.Cores;
+using backend.Domain.Cores.AchiveAggregate;
+using backend.Domain.Cores.TargetAggregate;
+using backend.Domain.Cores.TokenAggregate;
 using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 namespace backend.Infrastucture

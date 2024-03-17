@@ -1,7 +1,7 @@
 ﻿using backend.Domain.Contracts;
-namespace backend.Domain.Cores
+namespace backend.Domain.Cores.TargetAggregate
 {
-    public class SubTask: Entity<int>
+    public class SubTask : Entity<int>
     {
         public enum State
         {
@@ -12,11 +12,11 @@ namespace backend.Domain.Cores
             FailurWithoutReason = 5
         }
         public Guid Id { get; set; }
-        public string Name { get; set; }    
+        public string Name { get; set; }
         public State Status { get; set; }
-        public string Reason {  get; set; }
+        public string Reason { get; set; }
 
- 
+
 
     }
 }

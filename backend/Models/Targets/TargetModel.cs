@@ -1,4 +1,4 @@
-﻿using backend.Domain.Cores;
+﻿using backend.Domain.Cores.TargetAggregate;
 using backend.Models.Targets;
 using System.ComponentModel.DataAnnotations;
 namespace backend.Models.Targets

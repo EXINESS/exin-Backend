@@ -1,4 +1,4 @@
-﻿using backend.Domain.Cores;
+﻿using backend.Domain.Cores.AchiveAggregate;
 namespace backend.Services
 {
     public interface IAchiveSerive
