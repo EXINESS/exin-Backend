@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using static System.Net.Mime.MediaTypeNames;
 using backend.Domain.Cores.TargetAggregate;
+using backend.Domain.Cores.SubTaskAggregate;
 
 namespace backend.Infrastucture.Config
 {

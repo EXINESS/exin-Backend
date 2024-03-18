@@ -1,4 +1,5 @@
 ﻿using backend.Domain.Contracts;
+using backend.Domain.Cores.SubTaskAggregate;
 namespace backend.Domain.Cores.TargetAggregate
 {
     public class Target : Entity<int>

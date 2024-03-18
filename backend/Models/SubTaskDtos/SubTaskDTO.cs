@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace backend.Models.Targets
+namespace backend.Models.SubTaskDtos
 {
-    public class SubTaskModel
+    public class SubTaskDTO
     {
         public enum State
         {

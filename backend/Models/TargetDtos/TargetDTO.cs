@@ -1,9 +1,9 @@
-﻿using backend.Domain.Cores.TargetAggregate;
+﻿using backend.Domain.Cores.SubTaskAggregate;
 using backend.Models.Targets;
 using System.ComponentModel.DataAnnotations;
 namespace backend.Models.Targets
 {
-    public class TargetModel
+    public class TargetDTO
     {
         public Guid Id { get; set; }
         [Required]
