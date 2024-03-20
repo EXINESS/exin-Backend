@@ -30,7 +30,6 @@
     <Folder Include="Middlewares\Contracts\" />
     <Folder Include="Middlewares\Extensions\" />
     <Folder Include="Models\Dtos\" />
-    <Folder Include="Models\Users\" />
   </ItemGroup>
 
 </Project>
