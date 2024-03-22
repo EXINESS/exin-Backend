@@ -1,15 +1,8 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Text;
-using System.Linq;
 using backend.Infrastucture;
-using backend.Services;
 using AutoMapper;
-using Microsoft.AspNetCore.Http.HttpResults;
-using Microsoft.Extensions.Configuration;
 using backend.Domain.Cores.TargetAggregate;
 using backend.Domain.Cores.TokenAggregate;
-using backend.Models.Targets;
 using backend.Models.TokenDtos;
 
 namespace backend.Controllers
@@ -51,7 +44,17 @@ namespace backend.Controllers
         [HttpGet("{token}")]
         public async Task<ActionResult<TargetDTO>> GetTargetByIdAsync([FromRoute] Guid id,Token token)
         {
-              
+            if (CheckTokenAsync(token)!=null)
+            {
+                var target=await _targetRepository.GetTargetByIdAsync(id,token);
+                if (target is null)
+                {
+                    return NotFound($"targetId{id}not found");
+                }
+                var targetDto=_mapper.Map<TargetDTO>(target);
+                return Ok(targetDto);
+            }
+
         }
 
         [HttpPost]
@@ -59,10 +62,7 @@ namespace backend.Controllers
         {
             if (CheckTokenAsync(token) != null)
             {
-                var target = _mapper.Map<Target>();
-                await _targetRepository.AddTargetAsync(target, token);
-                var targetmodel = _mapper.Map<TargetDTO>(target);
-                return Ok(targetmodel);
+                
             }
             else
             {
