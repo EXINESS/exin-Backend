@@ -2,8 +2,11 @@
 using backend.Infrastucture;
 using AutoMapper;
 using backend.Domain.Cores.TargetAggregate;
+using backend.Models.TargetDtos;
+using backend.Models.SubTaskDtos;
 using backend.Domain.Cores.TokenAggregate;
-using backend.Models.TokenDtos;
+using backend.Domain.Cores.SubTaskAggregate;
+using backend.Models.Targets;
 
 namespace backend.Controllers
 {
@@ -15,21 +18,21 @@ namespace backend.Controllers
         private readonly IMapper _mapper;
         private readonly ITargetRepository _targetRepository;
         private readonly ITokenRepository _tokenRepository;
-        private readonly ISubTaskService _subTaskService;
-        public PDPController(exinDBContext dBContext, ITargetRepository targetRepository, IMapper mapper, ITokenRepository tokenRepository, ISubTaskService subTaskService)
+        private readonly ISubTaskRepository _subTaskRepository;
+        public PDPController(exinDBContext dBContext, ITargetRepository targetRepository, IMapper mapper, ITokenRepository tokenRepository, ISubTaskRepository  subTaskRepository )
         {
             dBContext = _dBContext;
             targetRepository = _targetRepository;
             mapper = _mapper;
             tokenRepository = _tokenRepository;
-            _subTaskService = subTaskService;
+            subTaskRepository = _subTaskRepository;
         }
         //public async Task<ActionResult<Token>> GetTokenAsync(Token token)
         //{
             
         //}
 
-        public async Task<ActionResult<TokenDTO>> CheckTokenAsync(Token token)
+        public async Task<ActionResult<TokenDto>> CheckTokenAsync(Token token)
         {
             var item=await _tokenRepository.CheckTokenAsync(token);
            
@@ -41,8 +44,8 @@ namespace backend.Controllers
             return Ok(tokenmodel);
 
         }
-        [HttpGet("{token}")]
-        public async Task<ActionResult<TargetDTO>> GetTargetByIdAsync([FromRoute] Guid id,Token token)
+        [HttpGet("{id}")]
+        public async Task<ActionResult<TargetDto>> GetTargetByIdAsync( Guid id,Token token)
         {
             if (CheckTokenAsync(token)!=null)
             {
@@ -51,18 +54,21 @@ namespace backend.Controllers
                 {
                     return NotFound($"targetId{id}not found");
                 }
-                var targetDto=_mapper.Map<TargetDTO>(target);
+                var targetDto=_mapper.Map<TargetDto>(target);
                 return Ok(targetDto);
             }
-
+            return BadRequest();
         }
 
         [HttpPost]
-        public async Task<ActionResult<TargetDTO>> AddTargetAsync(Target target, Token token)
+        public async Task<ActionResult<TargetDto>> AddTargetAsync(Target target, Token token,TargetForAddDto targetForAddDto)
         {
             if (CheckTokenAsync(token) != null)
             {
-                
+                var _target = _mapper.Map<Target>(targetForAddDto);
+                await _targetRepository.AddTargetAsync(target,token);
+                var targetDto=_mapper.Map<TargetDto>(_target);
+                return Ok(targetDto);
             }
             else
             {
@@ -70,36 +76,100 @@ namespace backend.Controllers
             }
         }
         [HttpPut("{targetId}")]
-        public async Task<ActionResult<TargetDTO>> EditeTargetAsync(Guid targetId, Token token)
+        public async Task<ActionResult<TargetDto>> EditeTargetAsync(Guid targetId, Token token,TargetForEditeDto targetForEditeDto)
         {
-
+            if (CheckTokenAsync(token)!=null)
+            {
+                var target=await _targetRepository.GetTargetByIdAsync(targetId,token);
+                if (target is null)
+                {
+                    return NotFound($"targetid{targetId}notfound");
+                    
+                }
+                _mapper.Map(target,targetForEditeDto );
+                return Ok(target);
+            }
+            return BadRequest();
         }
         [HttpDelete("{targetId}")]
-        public async Task<ActionResult<TargetDTO>> DeleteTargetAsync(Guid targetId, Token token)
+        public async Task<ActionResult<TargetDto>> DeleteTargetAsync(Guid targetId, Token token)
         {
-
+            if (CheckTokenAsync(token) != null)
+            {
+                var target = await _targetRepository.GetTargetByIdAsync(targetId, token);
+                if (target is null)
+                {
+                    return NotFound($"targetid{targetId}notfound");
+                }
+                await _targetRepository.DeleteTargetAsync(targetId, token);
+                return Ok();
+            }
+            return BadRequest();
         }
-        public async Task<ActionResult<TargetDTO>> GetSubTaskByIdAsync(Guid id, Token token)
+        
+        public async Task<ActionResult<SubTaskDto>> GetSubTaskByIdAsync(Guid id, Token token)
         {
+            if (CheckTokenAsync(token) != null)
+            {
+                var subtask = await _subTaskRepository.GetSubTaskByIdAsync(id, token);
+                if (subtask is null)
+                {
+                    return NotFound($"subTaskId{id}not found");
+                }
+                var subtaskDto = _mapper.Map<SubTaskDto>(subtask);
+                return Ok(subtaskDto);
+            }
+            return BadRequest();
 
         }
 
         [HttpPost]
-        public async Task<ActionResult<TargetDTO>> AddSubTaskAsync(Target target, Token token)
+        public async Task<ActionResult<SubTaskDto>> AddSubTaskAsync( SubTask subTask,Token token,SubTaskForAddDto subTaskForAdd)
         {
-
+            if (CheckTokenAsync(token) != null)
+            {
+                var _subtask = _mapper.Map<SubTask>(subTaskForAdd);
+                await _subTaskRepository.AddSubTaskAsync(subTask, token);
+                var subtaskDto = _mapper.Map<SubTaskDto>(_subtask);
+                return Ok(subtaskDto);
+            }
+            else
+            {
+                return NoContent();
+            }
         }
-        public async Task<ActionResult<TargetDTO>> EditeSubTaskAsync(Guid targetId, Token token)
+        public async Task<ActionResult<SubTaskDto>> EditeSubTaskAsync(Guid guid, Token token,SubTaskForEditeDto subTaskForEditeDto)
         {
+            if (CheckTokenAsync(token) != null)
+            {
+                var subtask = await _targetRepository.GetTargetByIdAsync(guid, token);
+                if (subtask is null)
+                {
+                    return NotFound($"targetid{guid}notfound");
 
+                }
+                _mapper.Map(subtask, subTaskForEditeDto);
+                return Ok(subtask);
+            }
+            return BadRequest();
         }
         [HttpDelete("{subtaskId}")]
-        public async Task<ActionResult<TargetDTO>> DeleteSubTaskAsync(Guid  subtaskId, Token token)
+        public async Task<ActionResult<SubTaskDto>> DeleteSubTaskAsync(Guid  subtaskId, Token token)
         {
-
+             if (CheckTokenAsync(token) != null)
+            {
+                var target = await _subTaskRepository.GetSubTaskByIdAsync(subtaskId, token);
+                if (target is null)
+                {
+                    return NotFound($"targetid{subtaskId}notfound");
+                }
+                await _subTaskRepository.DeleteSubTaskAsync(subtaskId, token);
+                return Ok();
+            }
+            return BadRequest();
         }
 
-        public async Task<ActionResult<TargetDTO>> CheckStatusTaskAsync(Guid subtaskId)
+        public async Task<ActionResult<SubTaskDto>> CheckStatusTaskAsync(Guid subtaskId)
         {
 
         }
