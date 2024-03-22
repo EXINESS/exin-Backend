@@ -32,6 +32,7 @@
     <Folder Include="Middlewares\Extensions\" />
     <Folder Include="Models\Dtos\" />
     <Folder Include="Models\Users\" />
+    <Folder Include="Mapping\" />
     <Folder Include="Services\" />
   </ItemGroup>
 
