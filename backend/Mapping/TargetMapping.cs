@@ -9,6 +9,8 @@ namespace backend.Mapping
     {
         public TargetMapping() {
             CreateMap<Target,TargetDto>();
+            CreateMap<TargetForAddDto, Target>();
+            CreateMap<TargetForEditeDto, Target>();
         }
     }
 }

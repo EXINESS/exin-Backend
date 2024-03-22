@@ -7,6 +7,7 @@ namespace backend.Mapping
     {
         public SubTaskMapping() {
             CreateMap<SubTask,SubTaskDto>();
+            CreateMap<SubTaskForAddDto, SubTask>();
         }
     }
 }
