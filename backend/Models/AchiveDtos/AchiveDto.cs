@@ -1,7 +1,7 @@
 ﻿using backend.Domain.Cores;
-namespace backend.Models
+namespace backend.Models.AchiveDtos
 {
-    public class AchiveModel
+    public class AchiveDto
     {
         public int Id { get; set; }
         public int UserId { get; set; }

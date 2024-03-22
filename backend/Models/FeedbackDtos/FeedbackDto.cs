@@ -1,7 +1,7 @@
 ﻿using backend.Domain.Cores;
-namespace backend.Domain.Cores
+namespace backend.Models.FeedbackDtos
 {
-    public class Feedback:Entity<int>
+    public class FeedbackDto
     {
         public int Id { get; set; }
         public int UserId { get; set; }

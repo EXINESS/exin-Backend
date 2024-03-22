@@ -2,7 +2,7 @@
 
 namespace backend.Models.SubTaskDtos
 {
-    public class SubTaskDTO
+    public class SubTaskDto
     {
         public enum State
         {

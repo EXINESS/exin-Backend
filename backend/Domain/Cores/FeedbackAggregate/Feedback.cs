@@ -1,7 +1,6 @@
-﻿using backend.Domain.Cores;
-namespace backend.Models
+﻿namespace backend.Domain.Cores.FeedbackAggregate
 {
-    public class FeedbackModel
+    public class Feedback : Entity<int>
     {
         public int Id { get; set; }
         public int UserId { get; set; }

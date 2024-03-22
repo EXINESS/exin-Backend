@@ -1,7 +1,7 @@
 ﻿using backend.Domain.Cores;
 namespace backend.Models.TokenDtos
 {
-    public class TokenDTO
+    public class TokenDto
     {
         public int UserId { get; set; }
         public TimeSpan Timeout { get; set; }
