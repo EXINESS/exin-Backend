@@ -139,6 +139,7 @@ namespace backend.Controllers
                 return NoContent();
             }
         }
+        [HttpPut("{guid}")]
         public async Task<ActionResult<SubTaskDto>> EditeSubTaskAsync(Guid guid, Token token,SubTaskForEditeDto subTaskForEditeDto)
         {
             if (CheckTokenAsync(token) != null)
