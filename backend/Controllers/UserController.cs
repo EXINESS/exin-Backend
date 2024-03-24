@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Text;
 using System.Security.Cryptography;
-using backend.Domain.Cores;
+using backend.Domain.Cores.UserAggregate;
 
 namespace backend.Controllers
 {

@@ -1,4 +1,4 @@
-﻿using backend.Domain.Cores;
+﻿using backend.Domain.Cores.UserAggregate;
 
 namespace backend.Services
 {

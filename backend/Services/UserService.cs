@@ -1,4 +1,4 @@
-﻿using backend.Domain.Cores;
+﻿using backend.Domain.Cores.UserAggregate;
 using backend.Services;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
