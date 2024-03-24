@@ -13,5 +13,6 @@ namespace backend.Controllers
     [Route("[controller]/[action]")]
     public class AchiveController:ControllerBase
     {
+
     }
 }
