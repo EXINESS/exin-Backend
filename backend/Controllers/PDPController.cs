@@ -58,7 +58,7 @@ namespace backend.Controllers
                 var targetDto=_mapper.Map<TargetDto>(target);
                 return Ok(targetDto);
             }
-            return BadRequest();
+            return Unauthorized();
         }
 
         [HttpPost]
@@ -73,7 +73,7 @@ namespace backend.Controllers
             }
             else
             {
-                return NoContent();
+                return Unauthorized();
             }
         }
         [HttpPut("{targetId}")]
@@ -90,7 +90,7 @@ namespace backend.Controllers
                 _mapper.Map(target,targetForEditeDto );
                 return Ok(target);
             }
-            return BadRequest();
+            return Unauthorized();
         }
         [HttpDelete("{targetId}")]
         public async Task<ActionResult<TargetDto>> DeleteTargetAsync(Guid targetId, Token token)
@@ -105,7 +105,7 @@ namespace backend.Controllers
                 await _targetRepository.DeleteTargetAsync(targetId, token);
                 return Ok();
             }
-            return BadRequest();
+            return Unauthorized();
         }
         
         public async Task<ActionResult<SubTaskDto>> GetSubTaskByIdAsync(Guid id, Token token)
@@ -120,7 +120,7 @@ namespace backend.Controllers
                 var subtaskDto = _mapper.Map<SubTaskDto>(subtask);
                 return Ok(subtaskDto);
             }
-            return BadRequest();
+            return Unauthorized();
 
         }
 
@@ -136,7 +136,7 @@ namespace backend.Controllers
             }
             else
             {
-                return NoContent();
+                return Unauthorized();
             }
         }
         [HttpPut("{guid}")]
@@ -153,7 +153,7 @@ namespace backend.Controllers
                 _mapper.Map(subtask, subTaskForEditeDto);
                 return Ok(subtask);
             }
-            return BadRequest();
+            return Unauthorized();
         }
         [HttpDelete("{subtaskId}")]
         public async Task<ActionResult<SubTaskDto>> DeleteSubTaskAsync(Guid  subtaskId, Token token)
@@ -168,7 +168,7 @@ namespace backend.Controllers
                 await _subTaskRepository.DeleteSubTaskAsync(subtaskId, token);
                 return Ok();
             }
-            return BadRequest();
+            return Unauthorized();
         }
 
         public async Task<ActionResult<SubTaskDto>> CheckStatusTaskAsync(Guid subtaskId)

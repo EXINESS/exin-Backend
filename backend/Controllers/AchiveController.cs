@@ -61,7 +61,7 @@ namespace backend.Controllers
                 var achiveDto = _mapper.Map<AchiveDto>(achive);
                 return Ok(achiveDto);
             }
-            return BadRequest();
+            return Unauthorized();
         }
 
         [HttpPost]
@@ -76,7 +76,7 @@ namespace backend.Controllers
             }
             else
             {
-                return NoContent();
+                return Unauthorized();
             }
         }
         [HttpPut("{Id}")]
@@ -93,7 +93,7 @@ namespace backend.Controllers
                 _mapper.Map(achive, achiveForEditeDto);
                 return Ok(achive);
             }
-            return BadRequest();
+            return Unauthorized();
         }
         [HttpDelete("{Id}")]
         public async Task<ActionResult<AchiveDto>> DeleteAchiveAsync(Guid Id, Token token)
@@ -108,7 +108,7 @@ namespace backend.Controllers
                 await _achiveRepository.DeleteAchiveAsync(Id, token);
                 return Ok();
             }
-            return BadRequest();
+            return Unauthorized();
         }
 
 
