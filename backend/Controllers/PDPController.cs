@@ -44,7 +44,6 @@ namespace backend.Controllers
             var tokenmodel=_mapper.Map<Token>(item);
             return Ok(tokenmodel);
 
-        }
         [HttpGet("{id}")]
         public async Task<ActionResult<TargetDto>> GetTargetByIdAsync( Guid id,Token token)
         {
