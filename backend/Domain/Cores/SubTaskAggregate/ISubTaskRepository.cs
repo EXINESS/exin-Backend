@@ -8,6 +8,6 @@ namespace backend.Domain.Cores.SubTaskAggregate
         Task<SubTask?> GetSubTaskByIdAsync(Guid guid, Token token);
         Task EditeSubTaskAsync(Guid guid, Token token);
         Task DeleteSubTaskAsync(Guid guid, Token token);
-        Task CheckStatusTaskAsync(Guid guid);
+        Task CheckStatusTaskAsync(Guid guid,Target target);
     }
 }

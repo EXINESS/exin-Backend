@@ -8,6 +8,9 @@ using backend.Models.TokenDtos;
 using backend.Domain.Cores.TokenAggregate;
 using backend.Domain.Cores.SubTaskAggregate;
 using backend.Models.Targets;
+using backend.Models.TokenDtos;
+using Microsoft.AspNetCore.Authorization;
+using Elasticsearch.Net;
 
 namespace backend.Controllers
 {
@@ -28,11 +31,18 @@ namespace backend.Controllers
             tokenRepository = _tokenRepository;
             subTaskRepository = _subTaskRepository;
         }
-        //public async Task<ActionResult<Token>> GetTokenAsync(Token token)
-        //{
-            
-        //}
-
+        [HttpGet("{token}")]
+        public async Task<ActionResult<TokenDto>> GetTokenAsync(Token token)
+        {
+            var _token = await _tokenRepository.GetTokenAsync(token);
+            if (_token is null)
+            {
+                return NotFound($"targetId{token}not found");
+            }
+            var tokenDto = _mapper.Map<TokenDto>(_token);
+            return Ok(tokenDto);
+        }
+        [Authorize]
         public async Task<ActionResult<TokenDto>> CheckTokenAsync(Token token)
         {
             var item=await _tokenRepository.CheckTokenAsync(token);
@@ -40,9 +50,26 @@ namespace backend.Controllers
             if (item is null) { 
                 return  NotFound($"UserId{token}notfound");
             }
-            
-            var tokenmodel=_mapper.Map<Token>(item);
-            return Ok(tokenmodel);
+            else if(item.Timeout > DateTime.Now.TimeOfDay){
+
+                  _tokenRepository.DelTokenAsync(token);
+                return NotFound($"UserId{token}notfound");
+            }
+            else {
+                var tokenmodel = _mapper.Map<Token>(item);
+                return Ok(tokenmodel);
+            }
+        }
+        public async Task<ActionResult<TokenDto>> DelTokenAsync(Token token)
+        {
+            var _token = await _tokenRepository.GetTokenAsync(token);
+            if (token is null)
+            {
+                return NotFound($"targetid{token}notfound");
+            }
+            await _tokenRepository.DelTokenAsync( _token);
+            return Ok();
+        }
 
         [HttpGet("{id}")]
         public async Task<ActionResult<TargetDto>> GetTargetByIdAsync( Guid id,Token token)
@@ -159,8 +186,8 @@ namespace backend.Controllers
         {
              if (CheckTokenAsync(token) != null)
             {
-                var target = await _subTaskRepository.GetSubTaskByIdAsync(subtaskId, token);
-                if (target is null)
+                var subtask = await _subTaskRepository.GetSubTaskByIdAsync(subtaskId, token);
+                if (subtask is null)
                 {
                     return NotFound($"targetid{subtaskId}notfound");
                 }
@@ -169,10 +196,20 @@ namespace backend.Controllers
             }
             return Unauthorized();
         }
-
-        public async Task<ActionResult<SubTaskDto>> CheckStatusTaskAsync(Guid subtaskId)
+        [HttpGet("{suntaskId}")]
+        public async Task<ActionResult<SubTaskDto>> CheckStatusTaskAsync(Guid subtaskId, Target target,Token token)
         {
-
+            if (CheckTokenAsync(token)!=null)
+            {
+                var subtask = await _subTaskRepository.GetSubTaskByIdAsync(subtaskId, token);
+                if(subtask is null)
+                {
+                    return NotFound($"targetid{subtaskId}notfound");
+                }
+                var result = subtask.Status;
+                return Ok(result);
+            }
+            return Unauthorized();
         }
 
 

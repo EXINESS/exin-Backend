@@ -14,6 +14,7 @@ using backend.Models.TokenDtos;
 using backend.Domain.Cores.TargetAggregate;
 using backend.Models.TargetDtos;
 using backend.Models.Targets;
+using Microsoft.AspNetCore.Authorization;
 
 
 namespace backend.Controllers
@@ -34,6 +35,18 @@ namespace backend.Controllers
             achiveRepository = _achiveRepository;
             tokenRepository = _tokenRepository;
         }
+        [HttpGet("{token}")]
+        public async Task<ActionResult<TokenDto>> GetTokenAsync(Token token)
+        {
+            var _token = await _tokenRepository.GetTokenAsync(token);
+            if (_token is null)
+            {
+                return NotFound($"targetId{token}not found");
+            }
+            var tokenDto = _mapper.Map<TokenDto>(_token);
+            return Ok(tokenDto);
+        }
+        [Authorize]
         public async Task<ActionResult<TokenDto>> CheckTokenAsync(Token token)
         {
             var item = await _tokenRepository.CheckTokenAsync(token);
@@ -42,12 +55,27 @@ namespace backend.Controllers
             {
                 return NotFound($"UserId{token}notfound");
             }
+            else if (item.Timeout > DateTime.Now.TimeOfDay)
+            {
+                _tokenRepository.DelTokenAsync(token);
+                return NotFound($"UserId{token}notfound");
+            }
 
             var tokenmodel = _mapper.Map<Token>(item);
             return Ok(tokenmodel);
 
         }
-
+        [HttpDelete("{token}")]
+        public async Task<ActionResult<TokenDto>> DelTokenAsync(Token token)
+        {
+            var _token = await _tokenRepository.GetTokenAsync(token);
+            if (token is null)
+            {
+                return NotFound($"targetid{token}notfound");
+            }
+            await _tokenRepository.DelTokenAsync(_token);
+            return Ok();
+        }
         [HttpGet("{id}")]
         public async Task<ActionResult<AchiveDto>> GetAchiveByIdAsync(Guid id, Token token)
         {
@@ -79,7 +107,7 @@ namespace backend.Controllers
                 return Unauthorized();
             }
         }
-        [HttpPut("{Id}")]
+        [HttpPost("{Id}")]
         public async Task<ActionResult<AchiveDto>> EditeAchiveAsync(Guid Id, Token token, AchiveForEditeDto achiveForEditeDto)
         {
             if (CheckTokenAsync(token) != null)
@@ -95,7 +123,7 @@ namespace backend.Controllers
             }
             return Unauthorized();
         }
-        [HttpDelete("{Id}")]
+        [HttpPost("{Id}")]
         public async Task<ActionResult<AchiveDto>> DeleteAchiveAsync(Guid Id, Token token)
         {
             if (CheckTokenAsync(token) != null)
