@@ -11,6 +11,7 @@ using backend.Models.Targets;
 using backend.Models.TokenDtos;
 using Microsoft.AspNetCore.Authorization;
 using Elasticsearch.Net;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace backend.Controllers
 {
@@ -144,7 +145,8 @@ namespace backend.Controllers
                     return NotFound($"subTaskId{id}not found");
                 }
                 var subtaskDto = _mapper.Map<SubTaskDto>(subtask);
-                return Ok(subtaskDto);
+                await _subTaskRepository.CheckStatusTaskAsync(id,);
+                return Ok();
             }
             return Unauthorized();
 
