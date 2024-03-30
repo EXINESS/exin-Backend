@@ -12,7 +12,7 @@ namespace backend.Infrastucture
         protected override void OnConfiguring(DbContextOptionsBuilder options)
         {
             // connect to sql server database
-            options.UseSqlServer(Configuration.GetConnectionString("server=(LocalDB)\\MSSQLLocalDB;Database=exinDB.mdf"));
+            options.UseSqlServer(Configuration.GetConnectionString("exinDB"));
         }
         public DbSet<User> Users { get; set; }
     }
