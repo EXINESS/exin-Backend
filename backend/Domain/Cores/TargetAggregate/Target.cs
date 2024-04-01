@@ -6,20 +6,20 @@ namespace backend.Domain.Cores.TargetAggregate
     {
         public Guid Id { get; set; }
         public string Name { get; set; }
-        public readonly List<SubTask> subTasks;
-
+        public readonly List<SubTask> _subTask;
+        public virtual IReadOnlyCollection<SubTask> SubTasks=> _subTask;
         public Target()
         {
-            subTasks = new List<SubTask>();
+            _subTask = new List<SubTask>();
         }
         public void AddSubTask(SubTask subTask)
         {
-            subTasks.Add(subTask);
+            _subTask.Add(subTask);
         }
 
         public void RemoveSubTask(SubTask subTask)
         {
-            subTasks.Remove(subTask);
+            _subTask.Remove(subTask);
         }
     }
 }
