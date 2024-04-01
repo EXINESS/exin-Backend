@@ -145,7 +145,6 @@ namespace backend.Controllers
                     return NotFound($"subTaskId{id}not found");
                 }
                 var subtaskDto = _mapper.Map<SubTaskDto>(subtask);
-                await _subTaskRepository.CheckStatusTaskAsync(id,);
                 return Ok();
             }
             return Unauthorized();
@@ -208,7 +207,10 @@ namespace backend.Controllers
                 {
                     return NotFound($"targetid{subtaskId}notfound");
                 }
+                await _subTaskRepository.CheckStatusTaskAsync(subtaskId,target);
+
                 var result = subtask.Status;
+
                 return Ok(result);
             }
             return Unauthorized();

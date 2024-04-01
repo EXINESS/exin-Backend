@@ -123,13 +123,33 @@ namespace backend.Controllers
         [HttpGet("{SubtaskId}")]
         public async Task<ActionResult<SubTaskDto>> GetSubtaskAsync(Guid SubtaskId, Token token)
         {
-
+            if (CheckTokenAsync(token) != null)
+            {
+                var subtask = await _subTaskRepository.GetSubTaskByIdAsync(SubtaskId, token);
+                if (subtask is null)
+                {
+                    return NotFound($"subTaskId{SubtaskId}not found");
+                }
+                var subtaskDto = _mapper.Map<SubTaskDto>(subtask);
+                return Ok();
+            }
+            return Unauthorized();
         }
 
-        [HttpGet("{feedbackId}")]
-        public async Task<ActionResult<FeedbackDto>> GetFeedbackAsync(Guid feedbackId, Token token)
+        [HttpGet("{feedbackd}")]
+        public async Task<ActionResult<FeedbackDto>> GetFeedbackAsync(Guid feedbackd, Token token)
         {
-
+            if (CheckTokenAsync(token)!=null)
+            {
+                var feedback=_feedbackRepository.GetFeedbackByIdAsync(feedbackd, token);
+                if (feedback is null)
+                {
+                    return NotFound($"subTaskId{feedbackd}not found");
+                }
+                var feedbackdto= _mapper.Map<FeedbackDto>(feedback);
+                return Ok();
+            }
+            return Unauthorized() ; 
         }
 
     }
