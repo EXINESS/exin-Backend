@@ -34,4 +34,6 @@
     <Folder Include="Models\Users\" />
   </ItemGroup>
 
+  <ProjectExtensions><VisualStudio><UserProperties appsettings_1development_1json__JsonSchema="https://cdn.jsdelivr.net/npm/tsup/schema.json" /></VisualStudio></ProjectExtensions>
+
 </Project>

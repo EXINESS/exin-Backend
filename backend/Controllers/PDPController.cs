@@ -198,7 +198,7 @@ namespace backend.Controllers
             return Unauthorized();
         }
         [HttpGet("{suntaskId}")]
-        public async Task<ActionResult<SubTaskDto>> CheckStatusTaskAsync(Guid subtaskId, Target target,Token token)
+        public async Task<ActionResult<SubTaskDto>> CheckStatusSubTaskAsync(Guid subtaskId, Target target,Token token)
         {
             if (CheckTokenAsync(token)!=null)
             {
@@ -207,7 +207,7 @@ namespace backend.Controllers
                 {
                     return NotFound($"targetid{subtaskId}notfound");
                 }
-                await _subTaskRepository.CheckStatusTaskAsync(subtaskId,target);
+                await _subTaskRepository.CheckStatusSubTaskAsync(subtaskId,target,token);
 
                 var result = subtask.Status;
 

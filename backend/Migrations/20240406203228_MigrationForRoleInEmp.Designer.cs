@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using backend.Infrastucture;
 
@@ -11,9 +12,11 @@ using backend.Infrastucture;
 namespace backend.Migrations
 {
     [DbContext(typeof(exinDBContext))]
-    partial class exinDBContextModelSnapshot : ModelSnapshot
+    [Migration("20240406203228_MigrationForRoleInEmp")]
+    partial class MigrationForRoleInEmp
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
