@@ -1,6 +1,14 @@
+using backend.Infrastucture;
 using backend.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.Services.AddDbContext<exinDBContext>(options =>
+{
+    var constr = builder.Configuration.GetConnectionString("exindb");
+
+    options.UseSqlServer(constr);
+});
 
 // Add services to the container.
 
